@@ -1,19 +1,21 @@
+// ------------------------- syntex 1 -------------------------
+
 const asyncHandler = (requestHandler)=>{
-    (req, res , next)=>{
-        Promise.resolve(requestHandler(res , req , next))
+    return (req, res , next)=>{
+        Promise.resolve(requestHandler( req, res , next))
         .catch( (err)=> next(err) )
     }
 }
 
 
 
-export { asyncHandler }
-
+// ------------------------- syntex 2 -------------------------
+/* explanation-
 // const asyncHandler = () => {}
 // const asyncHandler = (fun) => () => {} 
 // const asyncHandler = (fun) => async () => {} 
-
-
+*/
+    
 // const asyncHandler = (fn) => async (req, res, next) => {
 //     try {
 //         await fn(req, res, next)
@@ -22,6 +24,9 @@ export { asyncHandler }
 //             success: false,
 //             message: err.message
 //         })
-
+        
 //     }
 // }
+
+
+export { asyncHandler }
