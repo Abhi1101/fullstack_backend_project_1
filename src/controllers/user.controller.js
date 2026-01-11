@@ -3,7 +3,6 @@ import {ApiError} from "../utils/ApiError.js"
 import {User} from "../models/user.models.js"
 import {uploadOnCloudinary} from "../utils/cloudinary.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
-import mongoose from "mongoose";
 
 const registerUser = asyncHandler( async (req , res)=>{
     //  res.status(200).json({
@@ -32,9 +31,16 @@ const registerUser = asyncHandler( async (req , res)=>{
         throw new ApiError(400,`user with email:${email} and username:${username} already exists`)
     }
 
+    console.log(req.files.avatar[0]);
+    console.log(req.files.avatar[0].path);
+    
+
     // CHECK FOR AVATAR FILE IS UPLOADED OR NOT
     const avatarLocalPath = req.files?.avatar[0]?.path
     const coverImageLocalPath = req.files?.coverImage[0]?.path
+
+    console.log("avatar local path : ",avatarLocalPath);
+    
 
     if(!avatarLocalPath){
         throw new ApiError("400", "avatar file required ")
@@ -44,6 +50,9 @@ const registerUser = asyncHandler( async (req , res)=>{
     
     const avatar = await uploadOnCloudinary(avatarLocalPath)
     const coverImage = await uploadOnCloudinary(coverImageLocalPath)
+
+    console.log("avatar | line:52 | :", avatar);
+    
     
     if(!avatar){
         throw new ApiError("400", "avatar file required ")
