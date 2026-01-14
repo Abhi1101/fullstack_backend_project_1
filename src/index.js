@@ -3,7 +3,10 @@
 //     path: './.env'
 // })
 
-import "dotenv/config";
+// import "dotenv/config";
+
+import "./config/env.js";   // 🔥 FIRST LINE
+
 
 import connectDB from "./db/index.js";
 import { app } from './app.js';
